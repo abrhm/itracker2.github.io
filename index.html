@@ -9,8 +9,13 @@
 		<link rel="stylesheet" href="resources/css/style.css">
 	</head>
 <body>
-	<ul class="menu">
-		<li><a href="#">Menu</a></li>
+	<ul class="dropdown menu" data-dropdown-menu>
+		<li>
+			<a href="#">Menu</a>
+			<ul class="menu">
+				<li><a href="#">New creature</a></li>
+			</ul>
+		</li>
 		<li id="counter"><a href="#">Counter</a></li>
 	</ul>
 
@@ -44,12 +49,3 @@
 <script type="module" src="resources/js/index.js"></script>
 </body>
 </html>
-
-
-
-<!-- https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css
-
-https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js
-
-
-https://code.jquery.com/jquery-3.3.1.slim.min.js -->

@@ -1,13 +1,31 @@
-export const INITIATIVE_NEXT = "INITIATIVE_NEXT";
+const type = "INITIATIVE_NEXT";
 
-export function initiativeNext()
+function action()
 {
 	return {
-		type: INITIATIVE_NEXT,
+		type: type,
 	};
 }
 
-export default initiativeNext = {
-	INITIATIVE_NEXT,
-	initiativeNext,
+function resolve(state, action)
+{
+	let prevOrder = state.order;
+	let newOrder = [];
+
+	for (let newIdx = 0; newIdx < prevOrder.length; ++newIdx)
+	{
+		const prevIdx = (newIdx + 1) % prevOrder.length;
+		newOrder[newIdx] = prevOrder[prevIdx];
+	}
+
+
+
+	let copy = Object.assign({}, state, {order: newOrder});
+	return copy;
+}
+
+export default {
+	type,
+	action,
+	resolve
 };
