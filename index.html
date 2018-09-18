@@ -3,49 +3,164 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Initiative tracker</title>
-
 		<!-- CSS includes -->
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/css/foundation.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" href="resources/css/style.css">
 	</head>
-<body>
-	<ul class="dropdown menu" data-dropdown-menu>
-		<li>
-			<a href="#">Menu</a>
-			<ul class="menu">
-				<li><a href="#">New creature</a></li>
-			</ul>
-		</li>
-		<li id="counter"><a href="#">Counter</a></li>
-	</ul>
+	<body>
+		<!-- Menu -->
+		<nav id="topNav" class="navbar navbar-expand-md static-top navbar-dark bg-dark align-items-left">
+			<button class="navbar-toggler px-1 p-2" type="button" data-toggle="collapse" data-target="#tracker-navbar">
+			<span>☰</span>
+			</button>
+			<div class="navbar-collapse collapse" id="tracker-navbar">
+				<ul class="nav navbar-nav">
+					<li class="nav-item">
+						<a id="initiative-list" class="nav-link" href="#">Initiative list</a>
+					</li>
+					<li class="nav-item">
+						<a id="new-character" class="nav-link" href="#">New character</a>
+					</li>
+					<li class="nav-item">
+						<a id="export" class="nav-link" href="#">Export encounter</a>
+					</li>
+					<li class="nav-item">
+						<a id="generate-link" class="nav-link" href="#">Generate link</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<!-- Initiative list page -->
+		<div id="initiative-list-page" class="page active">
+			<div class="container">
+				<button id="next" class="btn btn-link" type="button">Temporary next button</button>
+				<div id="initiative-list-root">
+				</div>
+			</div>
+		</div>
+		<!-- New character page -->
+		<div id="new-character-page" class="page">
+			<div class="container">
+				<div class="accordion" id="createAccordion" class="container">
+					<div class="card">
+						<div class="card-header" id="headingOne">
+							<h5 class="mb-0">
+								<button class="btn btn-link" type="button" data-toggle="collapse" data-target="#basicsArea" aria-expanded="true" aria-controls="basicsArea">
+								Basic stats
+								</button>
+							</h5>
+						</div>
+						<div id="basicsArea" class="collapse show" aria-labelledby="headingOne" data-parent="#createAccordion">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">Name</div>
+									<div class="col"><input type="text" autofocus></div>
+								</div>
+								<div class="row">
+									<div class="col">Group</div>
+									<div id="groupList" class="col"></div>
+								</div>
+								<div class="row">
+									<div class="col">Base initiation</div>
+									<div class="col"><input type="number" min="0" value="0"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header" id="headingTwo">
+							<h5 class="mb-0">
+								<button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#combatStats" aria-expanded="false" aria-controls="combatStats">
+								Combat stats
+								</button>
+							</h5>
+						</div>
+						<div id="combatStats" class="collapse" aria-labelledby="headingTwo" data-parent="#createAccordion">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">Health</div>
+									<div class="col"><input type="number" min="0" value="0"></div>
+								</div>
+								<div class="row">
+									<div class="col">AC</div>
+									<div class="col"><input type="number" min="0" value="12"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button id="add-" class="btn btn-link" type="button">Add</button>
+			</div>
+		</div>
+		<!-- Export page -->
+		<div id="export-page" class="page">
+			<div class="container">
+				Copy and save the following JSON to <a href="https://gist.github.com/">Github</a>
+				<pre>
+{
+	"allies" : {
+		"creatures":
+		[
+			{
+				"name" : "Player1",
+				"initiative_bonus": 5,
+				"AC": 15
+			},
+			{
+				"name" : "Player2",
+				"initiative_bonus": 5,
+				"AC": 14
+			}
+		],
+		"settings":
+		{
+			"roll": "manual"
+		}
+	},
 
-
-	<div id="root">
-	</div>
-
-
-	<div id="test">
-	</div>
-
-	<ul class="list-group">
-		<li class="list-group-item active">First</li>
-		<li class="list-group-item" style="background-color: #ffb3ba;">Second</li>
-		<li class="list-group-item" style="background-color: #baffc9;">Third</li>
-	</ul>
-
-<!-- JS includes -->
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.min.js"></script>
-<!-- TODO replace it with production version -->
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-
-<!-- Foundation -->
-<script crossorigin src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.min.js"></script>
-<script>
-	$(document).foundation();
-</script>
-
-<script type="module" src="resources/js/index.js"></script>
-</body>
+	"enemies" : {
+		"templates":
+		[
+			{
+				"name": "Gnoll",
+				"AC": 13,
+				"HP": 40,
+				"count": 5
+			}
+		],
+		"settings":
+		{
+			"roll": "auto"
+		}
+	}
+}
+</pre>
+			</div>
+		</div>
+		<!-- Link generate page -->
+		<div id="generate-link-page" class="page">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<input type="text" placeholder="Raw link to the github JSON">
+					</div>
+					<div class="col">
+						<button id="add-" class="btn btn-link" type="button">Generate</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- JS includes -->
+		<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.min.js"></script>
+		<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.0.0/redux.min.js"></script>
+		<!-- TODO replace it with production version -->
+		<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+		<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+		<!-- Bootstrap -->
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+		<!-- Application -->
+		<script type="module" src="resources/js/index.js"></script>
+	</body>
 </html>

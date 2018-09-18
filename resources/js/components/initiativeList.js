@@ -20,6 +20,6 @@ export default class InitiativeList extends React.Component
 			const newObj = {key: i, ...obj};
 			return React.createElement(Creature, newObj);
 		});
-		return React.createElement('ul', null, creatureList);
+		return React.createElement('ul', { className: "list-group" }, creatureList);
 	}
 }
